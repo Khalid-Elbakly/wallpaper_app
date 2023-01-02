@@ -47,28 +47,31 @@ class _HomeState extends State<Home> {
         },
         builder: (context, state) => Scaffold(
             body: (AppCubit.get(context).list.isNotEmpty)
-                ? Column(
-                    children: [
-                      Expanded(
-                        child: GridView.builder(
-                          controller: scrollController,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisSpacing: 10,
-                                  mainAxisSpacing: 10,
-                                  crossAxisCount: 2),
-                          itemCount: AppCubit.get(context).list.length,
-                          itemBuilder: (context, index) => Center(
-                            child: Image.network(
-                              AppCubit.get(context).list[index]!.src!.medium!,
-                              fit: BoxFit.cover,
+                ? Container(
+                    color: Color.fromARGB(255, 144, 185, 255),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: GridView.builder(
+                            controller: scrollController,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisSpacing: 10,
+                                    mainAxisSpacing: 10,
+                                    crossAxisCount: 2),
+                            itemCount: AppCubit.get(context).list.length,
+                            itemBuilder: (context, index) => Center(
+                              child: Image.network(
+                                AppCubit.get(context).list[index]!.src!.medium!,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      if (state is LoadingGetWallpaper)
-                        CircularProgressIndicator()
-                    ],
+                        if (state is LoadingGetWallpaper)
+                          CircularProgressIndicator()
+                      ],
+                    ),
                   )
                 : Center(child: CircularProgressIndicator())));
   }
